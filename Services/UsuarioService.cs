@@ -35,10 +35,27 @@ namespace alkemy_challenge.Services
             return tokenHandler.WriteToken(token);
         }
 
+        public static bool Registrar(Usuario usuario)
+        {
+            if(usuario.Nombre.Length > 0 && usuario.Password.Length > 0){
+                var tempU = UsuarioRepository.GetUsuario(usuario.Nombre, usuario.Password);
+                if (tempU == null)
+                {
+                    UsuarioRepository.AddUsuario(usuario);
+                    return true;
+                }
+                return false;
+            }
+            return false;
+        }
+
         public static string Loguear(Usuario usuario){
             var tempU = UsuarioRepository.GetUsuario(usuario.Nombre,usuario.Password);
-                if(tempU == null) return null;
-            return CreateToken(tempU);
+            if(tempU != null){
+                if(usuario.Password.Equals(tempU.Password))
+                return CreateToken(tempU);
+            }
+            return null;
         }
     }
 }

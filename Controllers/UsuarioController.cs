@@ -8,16 +8,24 @@ namespace alkemy_challenge.Controllers
     [Route("auth")]
     public class UsuarioController : ControllerBase
     {
-        [HttpPost]
-        [Route("login")]
+        [HttpPost("login")]
         [AllowAnonymous]
         public ActionResult<string> LoguearUsuario([FromBody]Usuario usuario){
             try{
-                string tempU = UsuarioService.Loguear(usuario);
-                return tempU;
+                string token = UsuarioService.Loguear(usuario);
+                return Ok(new{Mensaje = "Bienvenido", Token = token});
             }catch(Exception e){
-                return NotFound();
+                return NotFound(new {Mensaje = "Verificar los datos."});
             }
+        }
+
+        [HttpPost("register")]
+        [AllowAnonymous]
+        public ActionResult RegistrarUsuario([FromBody] Usuario usuario)
+        {
+            if (UsuarioService.Registrar(usuario))
+                return Ok(new { Mensaje = "Usuario creado exitosamente." });
+            return NotFound(new { Mensaje = "Comprobar los datos" });
         }
     }
 }

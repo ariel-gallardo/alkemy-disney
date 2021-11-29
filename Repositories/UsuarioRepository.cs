@@ -11,7 +11,14 @@ namespace alkemy_challenge.Repositories
         };
         
         public static Usuario GetUsuario(string usuario, string password){
-            return Usuarios.Where(u => u.Nombre.Equals(usuario) && u.Password.Equals(password)).FirstOrDefault();
+            return Usuarios.Where(u => u.Nombre.Equals(usuario)).FirstOrDefault();
+        }
+
+        public static void AddUsuario(Usuario usuario)
+        {
+            usuario.Id = Usuarios.Count();
+            usuario.Rol = "Cliente";
+            Usuarios.Add(usuario);
         }
     }
 }
