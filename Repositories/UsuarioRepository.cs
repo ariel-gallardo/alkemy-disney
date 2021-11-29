@@ -10,7 +10,7 @@ namespace alkemy_challenge.Repositories
             new Usuario {Id = 3, Nombre = "test3", Password = "test3", Rol = "Administrador"}
         };
         
-        public static Usuario? GetUsuario(string usuario, string password){
+        public static Usuario GetUsuario(string usuario, string password){
             return Usuarios.Where(u => u.Nombre.Equals(usuario) && u.Password.Equals(password)).FirstOrDefault();
         }
     }

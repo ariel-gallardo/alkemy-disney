@@ -35,14 +35,10 @@ namespace alkemy_challenge.Services
             return tokenHandler.WriteToken(token);
         }
 
-        public static Object? Loguear(Usuario usuario){
+        public static string Loguear(Usuario usuario){
             var tempU = UsuarioRepository.GetUsuario(usuario.Nombre,usuario.Password);
                 if(tempU == null) return null;
-            var token = CreateToken(tempU);
-            return new {
-                usuario = tempU,
-                token = token
-            };
+            return CreateToken(tempU);
         }
     }
 }
