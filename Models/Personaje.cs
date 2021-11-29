@@ -7,5 +7,6 @@ namespace alkemy_challenge.Models
         public int Edad { get; set; }
         public double Peso { get; set; }
         public string? Historia { get; set; }
+        public List<Pelicula>? Peliculas { get; set; }
     }
 }
