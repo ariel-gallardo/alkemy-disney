@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using alkemy_challenge.Models;
+using alkemy_challenge.Repositories;
 
 namespace alkemy_challenge.Services
 {
@@ -11,7 +12,7 @@ namespace alkemy_challenge.Services
     {
         private const double EXPIRE_MIN = 10.0;
         private const string SECRET_KEY = "SecretEncodedKey";
-        public static string CreateToken(Usuario usuario){
+        private static string CreateToken(Usuario usuario){
 
             var byteKey = Encoding.ASCII.GetBytes(SECRET_KEY);
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -32,6 +33,16 @@ namespace alkemy_challenge.Services
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
+        }
+
+        public static Object? Login(Usuario usuario){
+            var tempU = UsuarioRepository.GetUsuario(usuario.Nombre,usuario.Password);
+                if(tempU == null) return null;
+            var token = CreateToken(tempU);
+            return new {
+                usuario = tempU,
+                token = token
+            };
         }
     }
 }
