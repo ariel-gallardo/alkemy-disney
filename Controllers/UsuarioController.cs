@@ -15,7 +15,7 @@ namespace alkemy_challenge.Controllers
                 string token = UsuarioService.Loguear(usuario);
                 return Ok(new{Mensaje = "Bienvenido", Token = token});
             }catch(Exception e){
-                return NotFound(new {Mensaje = "Verificar los datos."});
+                return NotFound(new {Mensaje = e.Message});
             }
         }
 

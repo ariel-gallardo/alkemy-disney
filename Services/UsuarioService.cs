@@ -55,7 +55,7 @@ namespace alkemy_challenge.Services
                 if(usuario.Password.Equals(tempU.Password))
                 return CreateToken(tempU);
             }
-            return null;
+            throw new Exception("Verificar los datos.");
         }
     }
 }
